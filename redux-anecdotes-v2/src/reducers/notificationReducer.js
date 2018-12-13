@@ -11,16 +11,25 @@ const reducer = (store = initialState, action) => {
   }
 }
 
-export const setNotification = (message) => {
-  return {
+const setNotification = (message) => {
+  return{
     type: 'SET',
     message
   }
 }
 
-export const removeNotification = () => {
+const removeNotification = () => {
   return {
     type: 'REMOVE'
+  }
+}
+
+export const notify = (message, time) => {
+  return dispatch => {
+    dispatch(setNotification(message))
+    setTimeout(() => {
+      dispatch(removeNotification())
+    }, time*1000)
   }
 }
 
