@@ -1,0 +1,13 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+redux-anecdotes-v2/node_modules
+
+# testing
+redux-anecdotes-v2/coverage
+
+# production
+redux-anecdotes-v2/build
+
+# misc
+redux-anecdotes-v2/package-lock.json
