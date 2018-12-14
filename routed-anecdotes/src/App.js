@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 
 const Menu = () => (
   <div>    
@@ -54,7 +54,8 @@ class CreateNew extends React.Component {
     this.state = {
       content: '',
       author: '',
-      info: ''
+      info: '',
+      redirect: false
     }
   }
 
@@ -71,13 +72,15 @@ class CreateNew extends React.Component {
       info: this.state.info,
       votes: 0
     })
+    this.setState({ redirect: true })
   }
 
   render() {
     return(
       <div>
+        {this.state.redirect && <Redirect to="/"/>}
         <h2>create a new anecdote</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <div>
             content 
             <input name='content' value={this.state.content} onChange={this.handleChange} />
@@ -119,7 +122,8 @@ class App extends React.Component {
           id: '2'
         }
       ],
-      notification: ''
+      notification: '',
+      createdNew: false
     } 
   }
 
