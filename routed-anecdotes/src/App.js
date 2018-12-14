@@ -40,6 +40,12 @@ const About = () => (
   </div>
 )
 
+const Notification = ({ notification }) => (
+  <div>
+    {notification}
+  </div>
+)
+
 const Footer = () => (
   <div>
     Anecdote app for <a href='https://courses.helsinki.fi/fi/TKT21009/121540749'>Full Stack -sovelluskehitys</a>.
@@ -129,7 +135,13 @@ class App extends React.Component {
 
   addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
-    this.setState({ anecdotes: this.state.anecdotes.concat(anecdote) })
+    this.setState({ 
+      anecdotes: this.state.anecdotes.concat(anecdote),
+      notification: `a new andecdote '${anecdote.content}' created!`
+    })
+    setTimeout(() => {
+      this.setState({ notification: '' })
+    }, 10000);
   }
 
   anecdoteById = (id) =>
@@ -155,6 +167,7 @@ class App extends React.Component {
           <div>
             <h1>Software anecdotes</h1>
               <Menu />
+              <Notification notification={this.state.notification}/>
               <Route exact path="/" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
               <Route exact path="/anecdotes" render={() => <AnecdoteList anecdotes={this.state.anecdotes} />} />
               <Route exact path="/anecdotes/:id" render={({match}) => 
